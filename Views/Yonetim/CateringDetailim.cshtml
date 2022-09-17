@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Catering.Models.CateringDetail>
+
+@{
+    ViewData["Title"] = "CateringDetailim";
+    Layout = "~/Views/Shared/_yonetimtema.cshtml";
+}
+
+<h1>CateringDetailim</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Cateringfirmabilgi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Icerik)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sira)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Eklemetarihi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aktif)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Silindi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Catering)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cateringfirmabilgi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Icerik)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sira)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Eklemetarihi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aktif)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Silindi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Catering.CateringId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TurId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TurId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TurId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

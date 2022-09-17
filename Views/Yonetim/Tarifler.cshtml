@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Catering.Models.CateringDetail>
+
+@{
+    ViewData["Title"] = "Tarifler";
+    Layout = "~/Views/Shared/_yonetimtema.cshtml";
+}
+
+<h1>Tarifler</h1>
+
+<p>
+    <a asp-action="TarifEkle">Tarif Ekle</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Firma Adı Telefon No
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sira)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Eklemetarihi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aktif)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Catering)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TurId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cateringfirmabilgi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sira)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Eklemetarihi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aktif)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Catering.Cateringadi)
+            </td><!--burada bir ilişki var-->
+            <td>
+                <a asp-action="TarifGetir" asp-route-id="@item.TurId">Düzenle</a> 
+                <a asp-action="TarifYorumlari" asp-route-id="@item.TurId">Yorumlar</a> 
+                <a asp-action="TarifSil" asp-route-id="@item.TurId" onclick="return confirm('Tarif silinsin mi ?')">Sil</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

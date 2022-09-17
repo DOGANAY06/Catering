@@ -1,0 +1,73 @@
+﻿@model Catering.Models.Kullanicilar
+
+@{
+    ViewData["Title"] = "KullaniciEkle";
+    Layout = "~/Views/Shared/_yonetimtema.cshtml";
+}
+
+<h1>Kullanıcı Ekle Sayfası</h1>
+
+<h4>Kullanici</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="KullaniciEkle">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Adi" class="control-label"></label>
+                <input asp-for="Adi" class="form-control" />
+                <span asp-validation-for="Adi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Soyadi" class="control-label"></label>
+                <input asp-for="Soyadi" class="form-control" />
+                <span asp-validation-for="Soyadi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Eposta" class="control-label"></label>
+                <input asp-for="Eposta" class="form-control" />
+                <span asp-validation-for="Eposta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefon" class="control-label"></label>
+                <input asp-for="Telefon" class="form-control" />
+                <span asp-validation-for="Telefon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Parola" class="control-label"></label>
+                <input asp-for="Parola" class="form-control" />
+                <span asp-validation-for="Parola" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Parola" class="control-label">Parola (Tekrar)</label>
+                <input asp-for="Parola" class="form-control" />
+                <span asp-validation-for="Parola" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Yetki" class="control-label"></label>
+                <select asp-for="Yetki">
+                    <option value="true">Admin</option>
+                    <option value="true">Kullanıcı</option>
+                </select>
+                <span asp-validation-for="Yetki" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aktif" class="control-label"></label>
+                <select asp-for="Aktif">
+                    <option value="true">Evet</option>
+                    <option value="true">Hayır</option>
+                </select>
+                <span asp-validation-for="Aktif" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Ekle" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Kullanicilar">Kullanıcı Sayfasına Git</a>
+</div>
+

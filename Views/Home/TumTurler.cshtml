@@ -1,0 +1,32 @@
+﻿
+
+@model IEnumerable<Catering.Models.CateringDetail>
+
+@{
+    ViewData["Title"] = "Turler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Tüm Catering Firmaları Yemek Çesitleri</h1>
+
+<ul>
+
+    @foreach (var item in Model)
+    {
+        <li>
+            <a asp-action="Turler" asp-route-id="@item.TurId">
+
+                @Html.DisplayFor(modelItem => item.Cateringfirmabilgi)
+
+                @Html.DisplayFor(modelItem => item.Icerik)
+
+                @Html.DisplayFor(modelItem => item.Eklemetarihi) tarihinde eklendi.
+
+                Catering Kategorisi: @Html.DisplayFor(modelItem => item.Catering.Cateringadi)
+
+
+            </a> |
+
+        </li>
+    }
+</ul>

@@ -1,0 +1,54 @@
+﻿@model Catering.Models.TurYorumlar
+
+@{
+    ViewData["Title"] = "Turler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>@Model.cateringDetail.Cateringfirmabilgi </h4>
+<h4>Firma Kategorisi: @Model.cateringDetail.Catering.Cateringadi </h4>
+<div>
+    @Html.Raw(Model.cateringDetail.Icerik)<br />
+    <small>@Model.cateringDetail.Eklemetarihi tarihinde eklendi </small>
+    @if (Model.yorumlars.Count > 0)
+    { //eğer yorum varsa
+        <h4>Yorumlar</h4>
+    }
+    @foreach (var item in Model.yorumlars)
+    {
+
+        <b>@Html.Raw(item.Yorum1)</b> <br />
+        <small> @item.Uye.Adi @item.Uye.Soyadi tarafından yapılmıştır. @item.Eklemetarihi tarihinde gönderildi.</small><br />
+
+    }
+</div>
+        @using System.Security.Claims;
+        @{
+            try
+            {
+                string kulID = User.FindFirstValue(ClaimTypes.NameIdentifier).ToString();
+                <form asp-action="YorumYap" asp-controller="Home" method="post">
+                    <input id="UyeId" name="UyeId" type="hidden" value="@kulID" />
+                    <input id="TurId" name="TurId" type="hidden" value="@Model.cateringDetail.TurId" />
+                    <textarea id="Yorum1" name="Yorum1">
+        
+</textarea>
+                    <input id="btnYorumGonder" type="submit" value="Yorum Gönder" />
+                </form>
+                @if (@TempData["mesaj"] != null)
+                {//ilk açtığımızda gözükmesin diye
+                    <div class="alert alert-primary">
+                        @TempData["mesaj"]
+                    </div>
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        <br />
+        <a asp-action="TumTurler">Geri</a>

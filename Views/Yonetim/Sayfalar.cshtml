@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Catering.Models.Sayfalar>
+
+@{
+    ViewData["Title"] = "Sayfalar";
+    Layout = "~/Views/Shared/_yonetimtema.cshtml";
+}
+
+<h1>Sayfalar</h1>
+
+<p>
+    <a asp-action="SayfaEkle">Yeni Sayfa</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+             <th>
+               ID
+            </th>
+            <th>
+                Başlık
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Icerik)
+            </th>*@
+            <th>
+                Aktif
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Silindi)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SayfaId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Baslik)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aktif)
+            </td>
+        
+            <td>
+                <a asp-action="SayfaGetir" asp-route-id="@item.SayfaId">Düzenle</a> |
+                
+                <a asp-action="SayfaSil" asp-route-id="@item.SayfaId" onclick="return confirm('Sayfa silinsin mi ?')">Sayfayı Sil</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

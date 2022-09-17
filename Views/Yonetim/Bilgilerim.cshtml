@@ -1,0 +1,56 @@
+﻿@model Catering.Models.Kullanicilar
+
+@{
+    ViewData["Title"] = "Bilgilerim";
+    Layout = "~/Views/Shared/_yonetimtema.cshtml";
+}
+
+
+<h4>Kullanici Bilgisi </h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="BilgilerimiGuncelle">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="KullaniciId" />
+            <div class="form-group">
+                <label asp-for="Adi" class="control-label"></label>
+                <input asp-for="Adi" class="form-control" />
+                <span asp-validation-for="Adi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Soyadi" class="control-label"></label>
+                <input asp-for="Soyadi" class="form-control" />
+                <span asp-validation-for="Soyadi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Eposta" class="control-label"></label>
+                <input asp-for="Eposta" class="form-control" />
+                <span asp-validation-for="Eposta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefon" class="control-label"></label>
+                <input asp-for="Telefon" class="form-control" />
+                <span asp-validation-for="Telefon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Parola" class="control-label">Parola (Değiştirilmeyecekse boş bırakın)</label>
+                <input asp-for="Parola" class="form-control" />
+                <span asp-validation-for="Parola" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Parola" class="control-label">Parola (tekrar)</label>
+                <input asp-for="Parola" class="form-control" />
+                <span asp-validation-for="Parola" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Guncelle" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Geri</a>
+</div>
+

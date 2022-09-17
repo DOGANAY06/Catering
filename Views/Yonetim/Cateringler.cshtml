@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Catering.Models.Cateringler>
+
+@{
+    ViewData["Title"] = "Cateringler";
+    Layout = "~/Views/Shared/_yonetimtema.cshtml";
+}
+
+<h1>Cateringler</h1>
+
+<p>
+    <a asp-action="CateringEkle">Yeni Catering</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Catering Adı
+            </th>
+            <th>
+                Aktif
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CateringId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cateringadi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aktif)
+            </td>
+
+            <td>
+                <a asp-action="CateringGetir" asp-route-id="@item.CateringId">Düzenle</a> |
+                <a asp-action="CateringDetailim" asp-route-id="@item.CateringId">Catering Yemek</a> |
+                <a asp-action="CateringSil" asp-route-id="@item.CateringId" onclick="return confirm('Bu kategori silinsin mi?')">Sil</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

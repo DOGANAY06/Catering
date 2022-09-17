@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Catering</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        button:focus {
+            outline: 0;
+        }
+
+        .navbar .dropdown-menu .form-control {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Catering</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        @{
+                            cateringserviceDBContext db = new cateringserviceDBContext();
+                            var ustmenu = db.Menuler.Where(eleman => eleman.UstId == null && eleman.Silindi == false
+                            && eleman.Aktif == true).OrderBy(e => e.Sira).ToList();
+                            foreach (var item in ustmenu)
+                            {
+                                var altmenu = db.Menuler.Where(eleman => eleman.UstId == item.MenuId && eleman.Silindi == false
+                           && eleman.Aktif == true).OrderBy(e => e.Sira).ToList();
+                                if (altmenu.Count == 0)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="@item.Url">@item.Baslik</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @item.MenuId>
+                                            @item.Baslik
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" @item.MenuId>
+                                            @foreach (var item2 in altmenu)
+                                            {
+                                                <a class="dropdown-item" href="@item2.Url">@item2.Baslik</a>
+                                            }
+                                        </div>
+                                    </li>
+                                }
+                            }
+                        }
+                    </ul>
+
+                </div>
+                <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
+                    @using System.Security.Claims;
+
+                    @{
+                        try
+                        {
+                          
+                            <li class="dropdown order-1">
+                                <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">Giriş <span class="caret"></span></button>
+                                <ul class="dropdown-menu dropdown-menu-right mt-1">
+                                    <li class="p-3">
+                                        <form class="form" role="form" method="post" action="/Giris/GirisYap">
+                                            <div class="form-group">
+                                                <input id="Eposta" placeholder="E-Posta" name="Eposta" class="form-control form-control-sm" type="text">
+                                            </div>
+                                            <div class="form-group">
+                                                <input id="Parola" placeholder="Parola" name="Parola" class="form-control form-control-sm" type="password">
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-block">Giriş Yap</button>
+                                            </div>
+                                            <div class="form-group text-xs-center">
+                                                <small><a href="#">Parolamı Unuttum </a></small><br />
+                                                <small><a asp-controller="Giris" asp-action="KaydolPanel">Kaydol </a></small>
+                                            </div>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        }
+                        catch
+                        {
+                            string kuladi = User.FindFirstValue(ClaimTypes.Email).ToString();
+                            <li>
+                                <div class="form-group">
+                                    <small>
+                                        Hoşgeldiniz @kuladi
+                                        <a href="/Giris/CikisYap" class="btn btn-primary"
+                                           onclick="return confirm ('Çıkış yapılsın mı ?') ">Çıkış Yap</a>
+                                    </small>
+                                </div>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - Catering - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

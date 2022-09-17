@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Catering.Models.Menuler>
+
+@{
+    ViewData["Title"] = "Menuler";
+    Layout = "~/Views/Shared/_yonetimtema.cshtml";
+}
+
+<h1>Menuler</h1>
+
+<p>
+    <a asp-action="MenuEkle">Yeni Menü Ekle</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Başlık
+            </th>
+            <th>
+                Url
+            </th>
+            <th>
+               Sıra 
+            </th>
+            <th>
+                Ust Menu
+            </th>
+            <th>
+               Aktif
+            </th>
+           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Baslik)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Url)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sira)
+            </td>
+            <td>
+               
+                @{  //üst menu adını getircez 
+                    cateringserviceDBContext db = new cateringserviceDBContext();
+                    var m = db.Menuler.Where(m => m.MenuId == item.UstId).FirstOrDefault();
+                    if (m!=null)
+                    {
+                        @m.Baslik
+                    }
+                }
+                @m
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aktif)
+            </td>
+            <td>
+                <a asp-action="MenuGetir" asp-route-id="@item.MenuId">Düzenle</a> |
+                <a asp-action="Details" asp-route-id="@item.MenuId">Details</a> |
+                <a asp-action="MenuSil" asp-route-id="@item.MenuId" 
+                   onclick="return confirm('Menü öğesi silinsin mi ?')">Sil</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

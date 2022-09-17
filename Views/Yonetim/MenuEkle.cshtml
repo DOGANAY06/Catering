@@ -1,0 +1,79 @@
+﻿@model Catering.Models.Menuler
+
+@{
+    ViewData["Title"] = "MenuEkle";
+    Layout = "~/Views/Shared/_yonetimtema.cshtml";
+}
+
+<h1>Menü Ekle</h1>
+
+<h4>Menuler</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="MenuEkle">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Baslik" class="control-label">Başlık</label>
+                <input asp-for="Baslik" class="form-control" />
+                <span asp-validation-for="Baslik" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class=" col-md-6">
+                    <label asp-for="Url" class="control-label"></label>
+                    <input asp-for="Url" class="form-control" />
+                    <span asp-validation-for="Url" class="text-danger"></span>
+                </div>
+                <div class=" col-md-6" >
+
+                    <select class="form-control" multiple="multiple" asp-items="ViewBag.sayfalar"
+                            id="ddlSayfalar"
+                            ></select>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sira" class="control-label">Sıra</label>
+                <input asp-for="Sira" class="form-control" />
+                <span asp-validation-for="Sira" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UstId" class="control-label">Üst Menü (Varsa Seciniz Yoksa Yok Yapınız)</label>
+                <select asp-for="UstId" asp-items="ViewBag.ustmenuler" class="form-control"></select>
+                <span asp-validation-for="UstId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aktif" class="control-label"></label>
+                <select asp-for="Aktif" class="form-control">
+                    <option value="True">
+                        Evet
+                    </option>
+                    <option value="False">
+                        Hayır
+                    </option>
+                </select>
+                <span asp-validation-for="Aktif" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Ekle" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Menuler">Geri dön</a>
+</div>
+<!--jquery kullanacam url sağdan sola aktarılsın diye -->
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script >
+    $(document).ready(function () {
+        $("#ddlSayfalar").change(function () {
+            var id = $(this).children("option:selected").val();
+            $('#Url').val("/Home/Index/" + id); //secilen sayfanın id sinin getirilmesi 
+
+        });
+    });
+</script>
+

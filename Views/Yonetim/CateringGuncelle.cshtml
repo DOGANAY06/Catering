@@ -1,0 +1,43 @@
+﻿@model Catering.Models.Cateringler
+
+@{
+    ViewData["Title"] = "CateringGuncelle";
+    Layout = "~/Views/Shared/_yonetimtema.cshtml";
+}
+
+<h4>Cateringler</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CateringGuncelle">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="CateringId" />
+            <div class="form-group">
+                <label asp-for="Cateringadi" class="control-label"></label>
+                <input asp-for="Cateringadi" class="form-control" />
+                <span asp-validation-for="Cateringadi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aktif" class="control-label"></label>
+                <select asp-for="Aktif" class="form-control">
+                    <option value="True">
+                        Evet
+                    </option>
+                    <option value="False">
+                        Hayır
+                    </option>
+                </select>
+                <span asp-validation-for="Aktif" class="text-danger"></span>
+            </div>
+       
+            <div class="form-group">
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Cateringler">Geri Dön</a>
+</div>
+

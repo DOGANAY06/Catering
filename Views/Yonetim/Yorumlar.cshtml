@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Catering.Models.Yorum>
+
+@{
+    ViewData["Title"] = "Yorumlar";
+    Layout = "~/Views/Shared/_yonetimtema.cshtml";
+}
+
+<h1>Yorumlar</h1>
+
+@using (Html.BeginForm())
+{
+<div class="row">
+    <div class="col-6"> 
+        <select id="listelemeturu" name="listelemeturu" class="form-control">
+            <option value="Tumu">Tümü</option>
+            <option value="Onayli">Onaylı</option>
+            <option value="Onaysiz">Onaysız</option>
+        </select>
+        <br />
+    </div>
+    <div class="col-6">
+        <input type="submit" value="Listele" class="btn btn-primary" />
+    </div>
+</div>
+    
+    
+    
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Yorum
+            </th>
+            <th>
+                Ekleme Tarihi
+            </th>
+            <th>
+                Onay Durumu
+            </th>
+            <th>
+                Aktif
+            </th>
+            <th>
+                Türü
+            </th>
+            <th>
+                Yorumu Kim Yaptı
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yorum1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Eklemetarihi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aktif)
+            </td>  
+            <td>
+                @Html.DisplayFor(modelItem => item.Tur.Cateringfirmabilgi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uye.Adi)
+                <br />
+                @Html.DisplayFor(modelItem => item.Uye.Soyadi)
+            </td>
+            <td>
+                <a asp-action="Onayla" asp-route-id="@item.YorumId" onclick="return confirm('Onay Durumu değişsin mi ?')">Onayla/Gizle</a>
+                <!--onayliysa gizler gizliyse onaylar-->
+                <a asp-action="YorumSil" asp-route-id="@item.YorumId" onclick="return confirm('Yorum silinsin mi?')">Onayı Sil</a>
+                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
